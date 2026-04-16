@@ -21,9 +21,12 @@ exports.default = async function notarizing(context) {
   console.log(`Notarizing ${appPath} ...`);
 
   try {
-    execSync(`ditto -c -k --keepParent "${appPath}" "${zipPath}"`, {
-      stdio: "inherit",
-    });
+    execSync(
+      `ditto -c -k --sequesterRsrc --keepParent "${appPath}" "${zipPath}"`,
+      {
+        stdio: "inherit",
+      }
+    );
 
     execSync(
       `xcrun notarytool submit "${zipPath}" --keychain-profile "${profile}" --wait`,

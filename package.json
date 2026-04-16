@@ -25,9 +25,10 @@
     "build": "tsc -p tsconfig.node.json && vite build",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
     "preview": "vite preview",
-    "dist:mac:prod": "pnpm build && electron-builder --mac --publish never",
-    "dist:mac:prod:x64": "pnpm build && electron-builder --mac --x64 --publish never",
-    "dist:mac:prod:arm64": "pnpm build && electron-builder --mac --arm64 --publish never"
+    "verify:mac:prod-env": "node scripts/verify-mac-production-env.js",
+    "dist:mac:prod": "pnpm verify:mac:prod-env && pnpm build && electron-builder --mac --publish never",
+    "dist:mac:prod:x64": "pnpm verify:mac:prod-env && pnpm build && electron-builder --mac --x64 --publish never",
+    "dist:mac:prod:arm64": "pnpm verify:mac:prod-env && pnpm build && electron-builder --mac --arm64 --publish never"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

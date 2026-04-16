@@ -43,7 +43,7 @@ On first launch, grant **Screen Recording** and **Accessibility** permissions to
 APPLE_KEYCHAIN_PROFILE=<your-profile> pnpm dist:mac:prod
 ```
 
-The notarization flow uses `xcrun notarytool` with a keychain profile, matching the setup used in `personal_assistant`.
+The notarization flow uses `xcrun notarytool` with a keychain profile, matching the setup used in `personal_assistant` and `multi_agent`.
 
 If you have not stored a profile yet:
 
@@ -76,6 +76,8 @@ git push origin v0.1.0
 | `APPLE_ID` | Apple Developer account email |
 | `APPLE_APP_SPECIFIC_PASSWORD` | App-specific password (generated at appleid.apple.com) |
 | `APPLE_TEAM_ID` | Apple Developer Team ID |
+
+Locally, `pnpm dist:mac:prod` now runs a preflight check and fails fast unless exactly one notarization method is configured and code signing credentials are present.
 
 ## Data Storage
 
