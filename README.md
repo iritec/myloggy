@@ -7,7 +7,8 @@ A local-first work logging app for macOS. Captures screenshots every minute, gen
 
 <img width="2982" height="1890" alt="SCR-20260416-nhlt" src="https://github.com/user-attachments/assets/4b05d3e4-f40e-4baf-87bb-f430e7cf6dda" />
 
-<!-- screenshot -->
+Youtube
+youtube.com/watch?v=SQV6KOFrfIE
 
 ## Features
 
