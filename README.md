@@ -5,6 +5,8 @@
 
 A local-first work logging app for macOS. Captures screenshots every minute, generates AI-powered checkpoints every 10 minutes via Ollama, and organizes your work into daily / weekly / monthly views.
 
+<img width="2982" height="1890" alt="SCR-20260416-nhlt" src="https://github.com/user-attachments/assets/4b05d3e4-f40e-4baf-87bb-f430e7cf6dda" />
+
 <!-- screenshot -->
 
 ## Features
