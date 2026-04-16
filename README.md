@@ -3,104 +3,117 @@
 
 # myloggy
 
-A local-first work logging app for macOS. Captures screenshots every minute, generates AI-powered checkpoints every 10 minutes via Ollama, and organizes your work into daily / weekly / monthly views.
+myloggy は、macOS 向けの完全ローカル動作のワークログアプリです。スクリーンショット、解析、要約、設定、ログデータは基本的に手元の Mac 内で完結するため、セキュリティとプライバシーを保ったまま作業記録を残せます。
 
 <img width="2982" height="1890" alt="SCR-20260416-nhlt" src="https://github.com/user-attachments/assets/4b05d3e4-f40e-4baf-87bb-f430e7cf6dda" />
 
-Youtube
-youtube.com/watch?v=SQV6KOFrfIE
+デモ動画:
+https://www.youtube.com/watch?v=SQV6KOFrfIE
 
-## Features
+## 日本語
 
-- Automatic screenshot capture (1-min interval, multi-display support)
-- AI checkpoint generation using Ollama (e.g. `gemma3:27b`)
-- Cursor position tracking as an attention signal for the LLM
-- Work unit aggregation from checkpoints
-- Daily timeline, weekly summary, monthly calendar
-- Recording ON/OFF toggle
-- Configurable Ollama model and exclusion rules
-- Manual editing of work units
-- All data stays local (SQLite + filesystem)
+### 特徴
 
-## Requirements
+- 1分ごとの自動スクリーンショット記録
+- Ollama を使った AI チェックポイント生成
+- 日次 / 週次 / 月次での作業ログ整理
+- Work Unit の手動編集
+- 除外ルールや Ollama モデルの設定
+- 保存データはローカルファイルと SQLite に保持
 
-- **macOS** (uses native `screencapture` / `osascript`)
-- **Node.js** 20.19+ or 22.12+
-- **pnpm**
-- **Ollama** running locally with a model pulled (e.g. `ollama pull gemma3:27b`)
+### 必要なもの
 
-## Quick Start
+- macOS
+- Node.js `20.19+` または `22.12+`
+- Ollama
+- 解析に使うローカルモデル
+  例: `ollama pull gemma4:27b`
+
+`pnpm` は必須ではありません。Node.js の条件を満たしていれば、基本は `npm install` と `npm run dev` で十分です。`nodenv exec npm run dev` のような使い方でも問題ありません。`pnpm` は使いたい場合だけ選べます。
+
+### 使い方
 
 ```bash
 git clone https://github.com/iritec/myloggy.git
 cd myloggy
+npm install
+npm run dev
+```
+
+`pnpm` を使う場合:
+
+```bash
 pnpm install
 pnpm dev
 ```
 
-On first launch, grant **Screen Recording** and **Accessibility** permissions to Electron when prompted.
+初回起動時は、Electron に対して **Screen Recording** と **Accessibility** の権限を許可してください。
 
-## Build
+### ダウンロード
+
+macOS 向けの配布版:
+[GitHub Releases](https://github.com/iritec/myloggy/releases)
+
+### 保存場所
+
+データは Electron の `userData` 配下に保存されます。
+
+- `myloggy.sqlite`
+- `temp-snaps/`
+
+## English
+
+myloggy is a fully local-first work logging app for macOS. Screenshots, analysis, summaries, settings, and log data stay on your Mac by default, which helps preserve both security and privacy.
+
+### Features
+
+- Automatic screenshot capture every minute
+- AI checkpoint generation with Ollama
+- Daily, weekly, and monthly work log views
+- Manual editing of work units
+- Configurable exclusion rules and Ollama model
+- Local storage with SQLite and files on disk
+
+### Requirements
+
+- macOS
+- Node.js `20.19+` or `22.12+`
+- Ollama
+- A local model for analysis
+  Example: `ollama pull gemma4:27b`
+
+`pnpm` is not required. If your Node.js version meets the requirement, `npm install` and `npm run dev` are enough. `nodenv exec npm run dev` is also fine if you use nodenv. Use `pnpm` only if you prefer it.
+
+### Quick Start
 
 ```bash
-APPLE_KEYCHAIN_PROFILE=<your-profile> pnpm dist:mac:prod
+git clone https://github.com/iritec/myloggy.git
+cd myloggy
+npm install
+npm run dev
 ```
 
-The notarization flow uses `xcrun notarytool` with a keychain profile, matching the setup used in `personal_assistant` and `multi_agent`.
-
-If you have not stored a profile yet:
+If you prefer `pnpm`:
 
 ```bash
-xcrun notarytool store-credentials "<your-profile>" \
-  --apple-id "<apple-id-email>" \
-  --team-id "<team-id>" \
-  --password "<app-specific-password>"
-```
-
-## Download
-
-Pre-built binaries are available on the [Releases](https://github.com/iritec/myloggy/releases) page.
-
-## CI / Release
-
-Pushing a version tag, or running the workflow manually, builds signed + notarized macOS artifacts for both Apple Silicon and Intel and uploads `.dmg` / `.zip` files to GitHub Releases.
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-### Required GitHub Secrets
-
-| Secret | Description |
-|---|---|
-| `CERTIFICATE_P12_BASE64` | Base64-encoded Apple Developer certificate (.p12) |
-| `CERTIFICATE_PASSWORD` | Password for the .p12 file |
-| `APPLE_ID` | Apple Developer account email |
-| `APPLE_APP_SPECIFIC_PASSWORD` | App-specific password (generated at appleid.apple.com) |
-| `APPLE_TEAM_ID` | Apple Developer Team ID |
-
-Locally, `pnpm dist:mac:prod` now runs a preflight check and fails fast unless exactly one notarization method is configured and code signing credentials are present.
-
-## Data Storage
-
-All data is stored under Electron's `userData` directory:
-
-- `myloggy.sqlite` - work log database
-- `temp-snaps/` - temporary screenshots (deleted after checkpoint generation)
-
-## Troubleshooting
-
-### `Cannot find module @rollup/rollup-darwin-x64` / `darwin-arm64`
-
-Architecture mismatch between the shell that ran `pnpm install` and the one running `pnpm dev`. Fix:
-
-```bash
-arch -arm64 zsh
-rm -rf node_modules pnpm-lock.yaml
 pnpm install
 pnpm dev
 ```
+
+On first launch, allow **Screen Recording** and **Accessibility** permissions for Electron.
+
+### Download
+
+Prebuilt macOS binaries:
+[GitHub Releases](https://github.com/iritec/myloggy/releases)
+
+## Contact
+
+導入相談、AX コンサルティング、運用支援などのお問い合わせ:
+https://lab.lancers-ai.com/
+
+For implementation support, AI transformation consulting, or related inquiries:
+https://lab.lancers-ai.com/
 
 ## License
 
