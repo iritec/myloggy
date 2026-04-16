@@ -6,7 +6,8 @@
 myloggyは、macOS向けの完全ローカルで動作する作業ログアプリです。
 スクリーンショット、解析、要約、設定、ログデータは基本的にMac内で完結するため、セキュリティとプライバシーを保ったまま作業記録を残せます。
 
-[!['myloggy']('[サムネイル画像のURL](https://github.com/user-attachments/assets/4b05d3e4-f40e-4baf-87bb-f430e7cf6dda)')]('[Youtube動画のURL](https://youtu.be/fqFfMIP2Lc4)')
+[![myloggy](https://github.com/user-attachments/assets/4b05d3e4-f40e-4baf-87bb-f430e7cf6dda)](https://youtu.be/fqFfMIP2Lc4)
+
 
 ### 特徴
 
